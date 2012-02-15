@@ -2,11 +2,11 @@ A simple API for aggregation with mongodb; it also includes support for sorting 
 
 The examples assume that mongodb is running on the local machine on the default port.
 
-Start by running the LoadFootballData.java example.  If necessary you'll need to update the path that loads the data/ProFootball2007Season.csv into mongodb.
+Start by running the LoadFootballData.java example.  If necessary you'll need to update the path that loads the data/ProFootball2007Season.csv file into mongodb.
 
 After loading the data you can run the FootballExample class.  It demonstrates how to use a couple of the APIs within this library.
 
-The dataset used in this example is NFL statistics from the 2007 season.  The example program looks at some rushing stats and outputs the data below.  Note thatthe API provided here enables a user to easy count, sum and avg fields (similar to "group by" in SQL database) as well as sort and limit the results.
+The dataset used in this example is NFL statistics from the 2007 season.  The example program looks at some rushing stats and outputs the data below.  Note that the API provided here enables a user to easy count, sum and avg fields (similar to "group by" in a SQL database) as well as sort and limit the results.
 
 NFL Rushing Stats
 
