@@ -1,1 +1,53 @@
 A simple API for aggregation with mongodb; it also includes support for sorting and limiting the results.
+
+The examples assume that mongodb is running on the local machine on the default port.
+
+Start by running the LoadFootballData.java example.  If necessary you'll need to update the path that loads the data/ProFootball2007Season.csv into mongodb.
+
+After loading the data you can run the FootballExample class.  It demonstrates how to use a couple of the APIs within this library.
+
+The dataset used in this example is NFL statistics from the 2007 season.  The example program looks at some rushing stats and outputs the data below.  Note thatthe API provided here enables a user to easy count, sum and avg fields (similar to "group by" in SQL database) as well as sort and limit the results.
+
+NFL Rushing Stats
+
+Top 10 Rushing leaders for 2007
+name	yards
+---------------------
+LaDainian	Tomlinson	1474.0
+Adrian L.	Peterson	1341.0
+Brian	Westbrook	1333.0
+Willie	Parker	1316.0
+Jamal	Lewis	1304.0
+Clinton	Portis	1262.0
+Edgerrin	James	1222.0
+Willis	McGahee	1207.0
+Fred	Taylor	1202.0
+Thomas	Jones	1119.0
+
+Top 10 Rushing teams for 2007
+team	yards
+---------------------
+min	2313.0
+jax	2116.0
+nyg	2076.0
+sdg	1954.0
+pit	1904.0
+cle	1723.0
+oti	1702.0
+den	1698.0
+clt	1682.0
+phi	1662.0
+
+Top 10 Teams by Yard per Carry for 2007
+team	yards/carry
+---------------------
+min	5.494061757719715
+nyg	4.772413793103448
+jax	4.755056179775281
+phi	4.748571428571428
+sdg	4.619385342789598
+den	4.528
+cle	4.5223097112860895
+gnb	4.485380116959064
+sfo	4.338078291814947
+nwe	4.3123287671232875
