@@ -11,18 +11,18 @@ The dataset used in this example is NFL statistics from the 2007 season.  The ex
 NFL Rushing Stats
 
 Top 10 Rushing leaders for 2007
-name	yards
----------------------
+name				yards
+--------------------------------------
 LaDainian	Tomlinson	1474.0
 Adrian L.	Peterson	1341.0
-Brian	Westbrook	1333.0
-Willie	Parker	1316.0
-Jamal	Lewis	1304.0
-Clinton	Portis	1262.0
-Edgerrin	James	1222.0
-Willis	McGahee	1207.0
-Fred	Taylor	1202.0
-Thomas	Jones	1119.0
+Brian		Westbrook	1333.0
+Willie		Parker		1316.0
+Jamal		Lewis		1304.0
+Clinton		Portis		1262.0
+Edgerrin	James		1222.0
+Willis		McGahee		1207.0
+Fred		Taylor		1202.0
+Thomas		Jones		1119.0
 
 Top 10 Rushing teams for 2007
 team	yards
