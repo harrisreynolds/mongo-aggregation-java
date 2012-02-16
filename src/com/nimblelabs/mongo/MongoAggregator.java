@@ -117,6 +117,51 @@ public class MongoAggregator
     return (List)results;
     }
 
+  // ********** STD DEVIATION METHOD ******************************************
+
+  /**
+   * see http://www.johndcook.com/standard_deviation.html
+   * 
+   * @param groupByField
+   * @param sumField
+   * @param condition
+   * @return
+   */
+  public List stddev( String groupByField, String sumField, DBObject condition )
+    {
+    DBObject columnField = new BasicDBObject(groupByField, true);
+
+    DBObject initial = new BasicDBObject("count", 0.0);
+    initial.put("oldSum", 0.0);
+    initial.put("newSum", 0.0);
+    initial.put("oldMean", 0.0);
+    initial.put("newMean", 0.0);
+
+    StringBuffer reduceFunction = new StringBuffer("function(obj,prev) { ");
+    reduceFunction.append("if( isNaN(obj." + sumField + ") ) return; " );
+    reduceFunction.append("prev.sum += obj." + sumField + "; " );
+    reduceFunction.append("prev.count++;" );
+    reduceFunction.append("if(prev.count==1){" );
+    reduceFunction.append("prev.oldMean = obj." + sumField + ";" );
+    reduceFunction.append("prev.newMean = obj." + sumField + ";" );
+    reduceFunction.append("prev.oldSum = 0.0; } else {" );
+    reduceFunction.append("prev.newMean = prev.oldMean + (obj." + sumField + " - prev.oldMean)/prev.count; " );
+    reduceFunction.append("prev.newSum = prev.oldSum + (obj." + sumField + " - prev.oldMean)*(obj." + sumField + " - prev.newMean);" );
+    reduceFunction.append("prev.oldMean = prev.newMean;" );
+    reduceFunction.append("prev.oldSum = prev.newSum;}" );
+    reduceFunction.append("}" );
+
+    StringBuffer finalizeFunction = new StringBuffer("function(obj) { ");
+    finalizeFunction.append("obj.mean = (obj.count >0) ? obj.newMean : 0.0;");
+    finalizeFunction.append("obj.variance = (obj.count > 1) ? (obj.newSum/(obj.count -1)) : 0.0;");
+    finalizeFunction.append("obj.stddev = Math.sqrt(obj.variance); }");
+
+    String reduce = reduceFunction.toString();
+    String finalize = finalizeFunction.toString();
+    DBObject results = collection.group(columnField, condition, initial, reduce, finalize);
+    return (List)results;
+    }
+
   // ********** EXPERIMENTAL METHODS ******************************************
 
   public List divideTwoSums( String groupByField, String sumField1, String sumField2, DBObject condition, String resultLabel, boolean sortDescending, int limit )
@@ -131,8 +176,7 @@ public class MongoAggregator
     DBObject results = collection.group(columnField, condition, initial, reduce, finalize);
 
     List list = (List)results;
-    Comparator comparator = new FieldComparator( resultLabel, sortDescending );
-    Collections.sort( list, comparator );
+    sort( resultLabel, sortDescending, list );
     return limitList( list, limit );
     }
 
